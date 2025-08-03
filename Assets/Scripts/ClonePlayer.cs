@@ -12,6 +12,11 @@ public class ClonePlayer : MonoBehaviour
     [SerializeField] FloatVariable loadCloneProgression;
     [SerializeField] ListVector listClonesPosition;
 
+    [SerializeField] FloatVariable numberClonesCreated;
+    [SerializeField] float loadSpeed = 2.25f;
+
+    [SerializeField] private VoidEventChannel OnCloneAttackReset;
+
     private float loadCloneDuration;
     private bool isUnloading = false;
 
@@ -34,12 +39,14 @@ public class ClonePlayer : MonoBehaviour
             var clonedPlayer = Instantiate(player, position, Quaternion.identity);
             clonedPlayer.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.75f);
         }
+
+        numberClonesCreated.CurrentValue = 0;
     }
 
     IEnumerator FillLoadAttack()
     {
         float timeElapsed = 0;
-        loadCloneProgression.CurrentValue = timeElapsed;
+        loadCloneProgression.CurrentValue = timeElapsed * loadSpeed;
 
         while (loadCloneProgression.CurrentValue < 1)
         {
@@ -57,17 +64,12 @@ public class ClonePlayer : MonoBehaviour
             yield return null;
         }
 
-        if (loadCloneProgression.CurrentValue == 1)
-        {
-            OnCloneAttackReady.Raise();
-        }
-
         isUnloading = true;
         float timeElapsed = loadCloneProgression.CurrentValue * loadCloneDuration;
 
         while (timeElapsed > 0)
         {
-            timeElapsed -= Time.deltaTime;
+            timeElapsed -= Time.deltaTime * loadSpeed;
             loadCloneProgression.CurrentValue = Mathf.Clamp01(timeElapsed / loadCloneDuration);
 
             yield return null;
@@ -87,6 +89,8 @@ public class ClonePlayer : MonoBehaviour
             case InputActionPhase.Canceled:
                 {
                     StopAllCoroutines();
+                    listClonesPosition.CurrentValue.Clear();
+                    OnCloneAttackReset.Raise();
                     StartCoroutine(ClearLoadAttack());
                 }
                 break;

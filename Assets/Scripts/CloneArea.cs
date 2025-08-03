@@ -7,10 +7,21 @@ public class CloneArea : MonoBehaviour
     [SerializeField] GameObject cloneAreaActivated;
 
     [SerializeField] FloatVariable loadCloneProgression;
+    [SerializeField] FloatVariable numberMaxClones;
+    [SerializeField] FloatVariable numberClonesCreated;
+
+    [SerializeField] private VoidEventChannel OnCloneAttackReady;
+    [SerializeField] private VoidEventChannel OnCloneAttackReset;
 
     private void Awake()
     {
         cloneAreaActivated.SetActive(false);
+        numberClonesCreated.CurrentValue = 0;
+    }
+
+    private void OnEnable()
+    {
+        OnCloneAttackReset.OnEventRaised += ResetState;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -25,8 +36,26 @@ public class CloneArea : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            cloneAreaActivated.SetActive(true);
-            listClonesPosition.CurrentValue.Add(transform.position);
+            if (numberMaxClones.CurrentValue == numberClonesCreated.CurrentValue)
+            {
+                OnCloneAttackReady.Raise();
+            }
+            else
+            {
+                numberClonesCreated.CurrentValue++;
+                cloneAreaActivated.SetActive(true);
+                listClonesPosition.CurrentValue.Add(transform.position);
+            }
         }
+    }
+
+    void ResetState()
+    {
+        cloneAreaActivated.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        OnCloneAttackReset.OnEventRaised -= ResetState;
     }
 }

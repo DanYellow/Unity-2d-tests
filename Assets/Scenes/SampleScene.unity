@@ -787,6 +787,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listClonesPosition: {fileID: 11400000, guid: 4cacfd31a578dbf45be4b5e8ce9d594a, type: 2}
+  cloneAreaActivated: {fileID: 593268965}
+  loadCloneProgression: {fileID: 11400000, guid: 8fb4fd0b88e3e7b40b76fbb39ff52a50, type: 2}
 --- !u!1 &2094107104
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +907,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -1951256573, guid: 6f87d7a9f31281e4fbdf27b1e17cf3ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

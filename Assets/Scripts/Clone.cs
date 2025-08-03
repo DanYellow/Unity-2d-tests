@@ -9,7 +9,10 @@ public class Clone : MonoBehaviour
     public Vector3 offsetWithTarget;
     public Transform target;
 
-    private void Awake() {
+    [SerializeField] private VoidEventChannel OnCloneContact;
+
+    private void Awake()
+    {
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -28,6 +31,11 @@ public class Clone : MonoBehaviour
         var nextPosition = target.transform.position + offsetWithTarget;
 
         rb.MovePosition(nextPosition);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnCloneContact.Raise();
     }
 
     private void OnDisable()

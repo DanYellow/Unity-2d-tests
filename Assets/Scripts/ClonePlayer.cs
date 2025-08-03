@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
 using System.Collections;
+using System.Collections.Generic;
 
 public class ClonePlayer : MonoBehaviour
 {
@@ -15,7 +16,12 @@ public class ClonePlayer : MonoBehaviour
     [SerializeField] FloatVariable numberClonesCreated;
     [SerializeField] float loadSpeed = 2.25f;
 
+    private bool cloneCreated = false;
+
     [SerializeField] private VoidEventChannel OnCloneAttackReset;
+    [SerializeField] private VoidEventChannel OnCloneContact;
+
+    private List<GameObject> listClones = new();
 
     private float loadCloneDuration;
     private bool isUnloading = false;
@@ -29,34 +35,45 @@ public class ClonePlayer : MonoBehaviour
     private void OnEnable()
     {
         OnCloneAttackReady.OnEventRaised += CreateClones;
+        OnCloneContact.OnEventRaised += CloneContact;
     }
 
     // Update is called once per frame
     void CreateClones()
     {
+        cloneCreated = true;
         foreach (var position in listClonesPosition.CurrentValue)
         {
             var clonedPlayer = Instantiate(player, position, Quaternion.identity);
             clonedPlayer.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.75f);
-
+            listClones.Add(clonedPlayer);
 
             var cloneInstance = clonedPlayer.GetComponent<Clone>();
             cloneInstance.target = gameObject.transform;
             cloneInstance.offsetWithTarget = position - gameObject.transform.position;
         }
 
-
         ResetState();
+    }
+
+    void DestroyClones()
+    {
+        cloneCreated = false;
+        foreach (var clone in listClones)
+        {
+            Destroy(clone);
+        }
+        listClones.Clear();
     }
 
     IEnumerator FillLoadAttack()
     {
         float timeElapsed = 0;
-        loadCloneProgression.CurrentValue = timeElapsed * loadSpeed;
+        loadCloneProgression.CurrentValue = timeElapsed;
 
         while (loadCloneProgression.CurrentValue < 1)
         {
-            timeElapsed += Time.deltaTime;
+            timeElapsed += Time.deltaTime * loadSpeed;
             loadCloneProgression.CurrentValue = Mathf.Clamp01(timeElapsed / loadCloneDuration);
 
             yield return null;
@@ -75,24 +92,22 @@ public class ClonePlayer : MonoBehaviour
 
         while (timeElapsed > 0)
         {
-            timeElapsed -= Time.deltaTime;
+            float speedFactor = cloneCreated ? 0.35f : 1.5f;
+            timeElapsed -= Time.deltaTime * speedFactor;
             loadCloneProgression.CurrentValue = Mathf.Clamp01(timeElapsed / loadCloneDuration);
+            // loadCloneProgression.CurrentValue -= 1.0f / loadCloneDuration * Time.deltaTime;;
 
             yield return null;
         }
         isUnloading = false;
 
+        DestroyClones();
     }
 
     public void OnLoadAttack(InputAction.CallbackContext ctx)
     {
         switch (ctx.phase)
         {
-            case InputActionPhase.Performed:
-                // {
-                //     Debug.Log("ctx.phase " + ctx.phase);
-                // }
-                break;
             case InputActionPhase.Canceled:
                 {
                     ResetState();
@@ -100,12 +115,11 @@ public class ClonePlayer : MonoBehaviour
                 break;
             case InputActionPhase.Started:
                 {
-                    // isLoadingAttack = true;
                     if (isUnloading)
                     {
                         return;
                     }
-                    Debug.Log("start");
+
                     var holdInteraction = ctx.interaction as HoldInteraction;
                     loadCloneDuration = holdInteraction.duration;
 
@@ -126,8 +140,15 @@ public class ClonePlayer : MonoBehaviour
         numberClonesCreated.CurrentValue = 0;
     }
 
+    private void CloneContact()
+    {
+        DestroyClones();
+        ResetState();
+    }
+
     private void OnDisable()
     {
         OnCloneAttackReady.OnEventRaised -= CreateClones;
+        OnCloneContact.OnEventRaised -= CloneContact;
     }
 }

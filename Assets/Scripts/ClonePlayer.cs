@@ -10,6 +10,7 @@ public class ClonePlayer : MonoBehaviour
     [SerializeField] private GameObject player;
 
     [SerializeField] FloatVariable loadCloneProgression;
+    [SerializeField] ListVector listClonesPosition;
 
     private float loadCloneDuration;
     private bool isUnloading = false;
@@ -17,17 +18,22 @@ public class ClonePlayer : MonoBehaviour
     private void Awake()
     {
         loadCloneProgression.CurrentValue = 0;
+        listClonesPosition.CurrentValue.Clear();
     }
 
     private void OnEnable()
     {
-        OnCloneAttackReady.OnEventRaised += CreateClone;
+        OnCloneAttackReady.OnEventRaised += CreateClones;
     }
 
     // Update is called once per frame
-    void CreateClone()
+    void CreateClones()
     {
-        Instantiate(player, transform.position, Quaternion.identity);
+        foreach (var position in listClonesPosition.CurrentValue)
+        {
+            var clonedPlayer = Instantiate(player, position, Quaternion.identity);
+            clonedPlayer.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.75f);
+        }
     }
 
     IEnumerator FillLoadAttack()
@@ -105,6 +111,6 @@ public class ClonePlayer : MonoBehaviour
 
     private void OnDisable()
     {
-        OnCloneAttackReady.OnEventRaised -= CreateClone;
+        OnCloneAttackReady.OnEventRaised -= CreateClones;
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 628709226366601991}
   - component: {fileID: 9172326027090595799}
   - component: {fileID: 4093924843231106004}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ClonePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &9172326027090595799
 BoxCollider2D:
   m_ObjectHideFlags: 0

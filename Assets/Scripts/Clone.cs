@@ -29,7 +29,6 @@ public class Clone : MonoBehaviour
     private void FixedUpdate()
     {
         var nextPosition = target.transform.position + offsetWithTarget;
-
         rb.MovePosition(nextPosition);
     }
 

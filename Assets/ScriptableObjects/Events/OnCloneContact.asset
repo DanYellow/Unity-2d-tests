@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc43ea6122f768d439c4112d685f4fee, type: 3}
-  m_Name: NumberMaxClones
+  m_Script: {fileID: 11500000, guid: 802ac1088875668498b6186b2fb9de7d, type: 3}
+  m_Name: OnCloneContact
   m_EditorClassIdentifier: 
-  CurrentValue: 3
   DeveloperDescription: 

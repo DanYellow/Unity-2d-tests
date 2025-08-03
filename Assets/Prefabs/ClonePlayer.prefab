@@ -189,3 +189,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnCloneAttackReset: {fileID: 11400000, guid: b9141caf3ce766e4b875a83e644c59ac, type: 2}
+  offsetWithTarget: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
+  OnCloneContact: {fileID: 11400000, guid: 72192d5862c301241a84213455e1aa96, type: 2}

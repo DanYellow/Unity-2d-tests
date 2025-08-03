@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 628709226366601991}
   - component: {fileID: 9172326027090595799}
   - component: {fileID: 4093924843231106004}
+  - component: {fileID: 4401544284861987672}
   m_Layer: 3
   m_Name: ClonePlayer
   m_TagString: Untagged
@@ -175,3 +176,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f708d3e6b55ab3349bc14e2b6acf3d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4401544284861987672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7675503727561197634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2439a36f8481824985f818534e2f240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnCloneAttackReset: {fileID: 11400000, guid: b9141caf3ce766e4b875a83e644c59ac, type: 2}

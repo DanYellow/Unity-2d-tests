@@ -26,11 +26,14 @@ public class CloneArea : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        print("enter");
         if (
             listClonesPosition.CurrentValue.Contains(transform.position) ||
             loadCloneProgression.CurrentValue < 1
         )
         {
+            print("enter 2");
+
             return;
         }
 
@@ -38,6 +41,7 @@ public class CloneArea : MonoBehaviour
         {
             if (numberMaxClones.CurrentValue == numberClonesCreated.CurrentValue)
             {
+                collision.gameObject.transform.position = transform.position;
                 OnCloneAttackReady.Raise();
             }
             else
@@ -52,6 +56,7 @@ public class CloneArea : MonoBehaviour
     void ResetState()
     {
         cloneAreaActivated.SetActive(false);
+        numberClonesCreated.CurrentValue = 0;
     }
 
     private void OnDisable()

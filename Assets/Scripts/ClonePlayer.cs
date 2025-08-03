@@ -38,9 +38,15 @@ public class ClonePlayer : MonoBehaviour
         {
             var clonedPlayer = Instantiate(player, position, Quaternion.identity);
             clonedPlayer.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.75f);
+
+
+            var cloneInstance = clonedPlayer.GetComponent<Clone>();
+            cloneInstance.target = gameObject.transform;
+            cloneInstance.offsetWithTarget = position - gameObject.transform.position;
         }
 
-        numberClonesCreated.CurrentValue = 0;
+
+        ResetState();
     }
 
     IEnumerator FillLoadAttack()
@@ -69,12 +75,13 @@ public class ClonePlayer : MonoBehaviour
 
         while (timeElapsed > 0)
         {
-            timeElapsed -= Time.deltaTime * loadSpeed;
+            timeElapsed -= Time.deltaTime;
             loadCloneProgression.CurrentValue = Mathf.Clamp01(timeElapsed / loadCloneDuration);
 
             yield return null;
         }
         isUnloading = false;
+
     }
 
     public void OnLoadAttack(InputAction.CallbackContext ctx)
@@ -88,10 +95,7 @@ public class ClonePlayer : MonoBehaviour
                 break;
             case InputActionPhase.Canceled:
                 {
-                    StopAllCoroutines();
-                    listClonesPosition.CurrentValue.Clear();
-                    OnCloneAttackReset.Raise();
-                    StartCoroutine(ClearLoadAttack());
+                    ResetState();
                 }
                 break;
             case InputActionPhase.Started:
@@ -111,6 +115,15 @@ public class ClonePlayer : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void ResetState()
+    {
+        StopAllCoroutines();
+        listClonesPosition.CurrentValue.Clear();
+        OnCloneAttackReset.Raise();
+        StartCoroutine(ClearLoadAttack());
+        numberClonesCreated.CurrentValue = 0;
     }
 
     private void OnDisable()

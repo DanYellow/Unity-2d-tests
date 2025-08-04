@@ -26,6 +26,10 @@ public class Clone : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void Update()
+    {
+    }
+
     private void FixedUpdate()
     {
         var nextPosition = target.transform.position + offsetWithTarget;

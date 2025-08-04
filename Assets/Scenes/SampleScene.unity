@@ -870,7 +870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160619042583339367, guid: 41e5f4c319dd5974abd3d36d2f99b188, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.4
+      value: 2.548
       objectReference: {fileID: 0}
     - target: {fileID: 8160619042583339367, guid: 41e5f4c319dd5974abd3d36d2f99b188, type: 3}
       propertyPath: m_LocalPosition.y
@@ -927,7 +927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160619042583339367, guid: 41e5f4c319dd5974abd3d36d2f99b188, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.408
+      value: 2.54
       objectReference: {fileID: 0}
     - target: {fileID: 8160619042583339367, guid: 41e5f4c319dd5974abd3d36d2f99b188, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1427,10 +1427,10 @@ GameObject:
   - component: {fileID: 1766126446589086103}
   - component: {fileID: 8030394207980227911}
   - component: {fileID: 7274860806698633969}
+  - component: {fileID: 8845009099666148053}
   - component: {fileID: 3031396803662620913}
   - component: {fileID: 6989285648178108387}
   - component: {fileID: 8845009099666148051}
-  - component: {fileID: 8845009099666148053}
   - component: {fileID: 8845009099666148052}
   m_Layer: 3
   m_Name: Player
@@ -1452,6 +1452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  playerMoveInput: {fileID: 11400000, guid: ade6f880a2c30bc4e81035779f52fbfc, type: 2}
 --- !u!114 &8845009099666148052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1464,6 +1465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db11fd01d1e73d545bfac8614f9701dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMoveInput: {fileID: 11400000, guid: ade6f880a2c30bc4e81035779f52fbfc, type: 2}
 --- !u!95 &8845009099666148053
 Animator:
   serializedVersion: 7

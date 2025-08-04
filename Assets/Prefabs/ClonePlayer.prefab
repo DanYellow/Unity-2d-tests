@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 9172326027090595799}
   - component: {fileID: 4093924843231106004}
   - component: {fileID: 4401544284861987672}
+  - component: {fileID: 6171912871660549188}
+  - component: {fileID: 870348054915378193}
   m_Layer: 3
   m_Name: ClonePlayer
   m_TagString: Untagged
@@ -192,3 +194,39 @@ MonoBehaviour:
   offsetWithTarget: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
   OnCloneContact: {fileID: 11400000, guid: 72192d5862c301241a84213455e1aa96, type: 2}
+--- !u!95 &6171912871660549188
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7675503727561197634}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e68d78e3b76a6344db0a98297b6ef63f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &870348054915378193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7675503727561197634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db11fd01d1e73d545bfac8614f9701dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6171912871660549188}
+  playerMoveInput: {fileID: 11400000, guid: ade6f880a2c30bc4e81035779f52fbfc, type: 2}

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc43ea6122f768d439c4112d685f4fee, type: 3}
-  m_Name: NumberMaxClones
+  m_Script: {fileID: 11500000, guid: df1e6ed17460b214189a9608c07dde97, type: 3}
+  m_Name: PlayerMoveInput
   m_EditorClassIdentifier: 
-  CurrentValue: 4
+  CurrentValue: {x: 0, y: 0, z: 0}
   DeveloperDescription: 

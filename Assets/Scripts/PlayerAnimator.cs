@@ -4,7 +4,9 @@ using UnityEngine.InputSystem;
 public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
-    private Vector3 moveInput = Vector3.zero;
+    [SerializeField] private Vector3Variable playerMoveInput;
+
+    // public G isClone = false;
 
     private void Awake()
     {
@@ -14,17 +16,12 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (moveInput != Vector3.zero)
+        if (playerMoveInput.CurrentValue != Vector3.zero)
         {
-            animator.SetFloat("LinearVelocityX", moveInput.x);
-            animator.SetFloat("LinearVelocityY", moveInput.y);
+            animator.SetFloat("LinearVelocityX", playerMoveInput.CurrentValue.x);
+            animator.SetFloat("LinearVelocityY", playerMoveInput.CurrentValue.y);
         }
 
-        animator.SetBool("IsMoving", moveInput != Vector3.zero);
-    }
-
-    public void OnMove(InputAction.CallbackContext ctx)
-    {
-        moveInput = (Vector3)ctx.ReadValue<Vector2>();
+        animator.SetBool("IsMoving", playerMoveInput.CurrentValue != Vector3.zero);
     }
 }

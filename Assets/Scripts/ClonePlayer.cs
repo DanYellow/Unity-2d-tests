@@ -92,7 +92,7 @@ public class ClonePlayer : MonoBehaviour
 
         while (timeElapsed > 0)
         {
-            float speedFactor = cloneCreated ? 0.35f : 1.5f;
+            float speedFactor = cloneCreated ? 0.25f : 1.5f;
             timeElapsed -= Time.deltaTime * speedFactor;
             loadCloneProgression.CurrentValue = Mathf.Clamp01(timeElapsed / loadCloneDuration);
             // loadCloneProgression.CurrentValue -= 1.0f / loadCloneDuration * Time.deltaTime;;

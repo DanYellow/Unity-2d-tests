@@ -26,14 +26,38 @@ public class CloneArea : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        print("enter");
         if (
             listClonesPosition.CurrentValue.Contains(transform.position) ||
             loadCloneProgression.CurrentValue < 1
         )
         {
-            print("enter 2");
+            return;
+        }
 
+        if (collision.CompareTag("Player"))
+        {
+            if (numberMaxClones.CurrentValue == numberClonesCreated.CurrentValue)
+            {
+                collision.gameObject.transform.position = transform.position;
+                OnCloneAttackReady.Raise();
+            }
+            else
+            {
+                numberClonesCreated.CurrentValue++;
+                cloneAreaActivated.SetActive(true);
+                listClonesPosition.CurrentValue.Add(transform.position);
+            }
+        }
+    }
+
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (
+                listClonesPosition.CurrentValue.Contains(transform.position) ||
+                loadCloneProgression.CurrentValue < 1
+            )
+        {
             return;
         }
 

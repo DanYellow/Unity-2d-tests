@@ -18,7 +18,8 @@ public class PlayerMovements : MonoBehaviour
     private void FixedUpdate()
     {
         nextPosition = new Vector2(moveInput.x * moveSpeed, moveInput.y * moveSpeed);
-        rb.linearVelocity = nextPosition;
+        // rb.linearVelocity = nextPosition;
+        rb.MovePosition(transform.position + (Vector3) nextPosition * Time.fixedDeltaTime);
     }
 
     public void OnMove(InputAction.CallbackContext ctx)
